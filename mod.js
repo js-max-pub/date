@@ -1,5 +1,10 @@
 
-
+export function from(string) {
+	return new Date(Date.parse(string))
+}
+export function copy(date) {
+	return from(date.toISOString())
+}
 export function format(date, format, locale = 'lookup') {
 	// if (!locale) locale = 'lookup';
 	// console.log('format',date,format,locale)
@@ -26,8 +31,8 @@ export function format(date, format, locale = 'lookup') {
 	};
 	if (f.mm < 10) f.mm = '0' + f.mm;// for browser bug
 	if (f.ss < 10) f.ss = '0' + f.ss;// for browser bug
-	console.log('all',f)
-	for (var typ in f){
+	// console.log('all', f)
+	for (var typ in f) {
 		// console.log('format',typ,format)
 		var format = format.replace(typ, f[typ]);
 	}
@@ -51,9 +56,10 @@ export function format(date, format, locale = 'lookup') {
  * e.g. 2014/12/29 is Monday in week  1 of 2015
  *      2012/1/1   is Sunday in week 52 of 2011
  */
-export function getWeekNumber(d) {
+export function weekNumber(d) {
 	// Copy date so don't modify original
 	d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+	// d = copy(d)
 	// Set to nearest Thursday: current date + 4 - current day number
 	// Make Sunday's day number 7
 	d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
@@ -69,5 +75,5 @@ export function getWeekNumber(d) {
 // document.write('It\'s currently week ' + result[1] + ' of ' + result[0]);
 
 export default {
-	format, getWeekNumber
+	from, copy, format, weekNumber
 }
