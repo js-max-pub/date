@@ -1,10 +1,26 @@
 
-export function from(string) {
-	return new Date(Date.parse(string))
+export function from(string) { // pass date-object or string... no argument==now
+	return new Date(Date.parse(string ?? new Date()))
 }
 export function copy(date) {
 	return from(date.toISOString())
 }
+export function p0(s) { return String(s).padStart(2, '0') }
+export function Y(d) { return from(d).getFullYear() }
+export function M(d) { return p0(from(d).getMonth() + 1) }
+export function D(d) { return p0(from(d).getDate()) }
+export function isoDate(date) { return Y(date) + '-' + M(date) + '-' + D(date) }
+
+export function h(d) { return p0(from(d).getHours()) }
+export function m(d) { return p0(from(d).getMinutes()) }
+export function s(d) { return p0(from(d).getSeconds()) }
+export function isoTime(date) { return h(date) + ':' + m(date) + ':' + s(date) }
+
+// standard .toISOString() always converts to UTC
+export function isoDateTime(date) { return isoDate(date) + 'T' + isoTime(date) }
+
+
+
 export function format(date, format, locale = 'lookup') {
 	// if (!locale) locale = 'lookup';
 	// console.log('format',date,format,locale)
@@ -74,6 +90,6 @@ export function weekNumber(d) {
 // var result = getWeekNumber(new Date());
 // document.write('It\'s currently week ' + result[1] + ' of ' + result[0]);
 
-export default {
-	from, copy, format, weekNumber
-}
+// export default {
+// 	from, copy, format, weekNumber
+// }
