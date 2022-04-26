@@ -1,19 +1,20 @@
 
-export function from(string) { // pass date-object or string... no argument==now
+export function date(string) { // pass date-object or string... no argument==now
 	return new Date(Date.parse(string ?? new Date()))
 }
-export function copy(date) {
-	return from(date.toISOString())
+export function copy(d) {
+	// return date(d.toISOString())
+	return date(isoDateTime(d))
 }
 export function p0(s) { return String(s).padStart(2, '0') }
-export function Y(d) { return from(d).getFullYear() }
-export function M(d) { return p0(from(d).getMonth() + 1) }
-export function D(d) { return p0(from(d).getDate()) }
+export function Y(d) { return date(d).getFullYear() }
+export function M(d) { return p0(date(d).getMonth() + 1) }
+export function D(d) { return p0(date(d).getDate()) }
 export function isoDate(date) { return Y(date) + '-' + M(date) + '-' + D(date) }
 
-export function h(d) { return p0(from(d).getHours()) }
-export function m(d) { return p0(from(d).getMinutes()) }
-export function s(d) { return p0(from(d).getSeconds()) }
+export function h(d) { return p0(date(d).getHours()) }
+export function m(d) { return p0(date(d).getMinutes()) }
+export function s(d) { return p0(date(d).getSeconds()) }
 export function isoTime(date) { return h(date) + ':' + m(date) + ':' + s(date) }
 
 // standard .toISOString() always converts to UTC
