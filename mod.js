@@ -22,10 +22,13 @@ export function isoDateTime(date) { return isoDate(date) + 'T' + isoTime(date) }
 
 
 
-export function format(date, format, locale = 'lookup') {
+export function format(d, format, locale = 'lookup') {
+	// console.log('format',d)
+	d = date(d)
+	// console.log('-->',d)
 	// if (!locale) locale = 'lookup';
 	// console.log('format',date,format,locale)
-	var str = c => date.toLocaleString(locale, c);
+	var str = c => d.toLocaleString(locale, c);
 	var n = 'numeric';
 	var _2 = '2-digit';
 	var f = {
@@ -53,6 +56,7 @@ export function format(date, format, locale = 'lookup') {
 		// console.log('format',typ,format)
 		var format = format.replace(typ, f[typ]);
 	}
+	// console.log('-->',format)
 	return format;
 }
 
